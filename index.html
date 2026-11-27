@@ -18,7 +18,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
@@ -29,6 +29,7 @@
           <span>BuildTrack</span>
         </a>
         <nav class="nav-links" aria-label="Sections">
+          <a href="#look-lab">Look lab</a>
           <a href="https://demo.buildtrack.run">Demo</a>
           <a href="#features">Features</a>
           <a href="#agents">For agents</a>
@@ -43,6 +44,7 @@
 
     <main>
       <section class="hero wrap">
+        <div class="hero-bg" aria-hidden="true"></div>
         <p class="eyebrow"><span class="dot"></span> Open source · Built for the agentic era</p>
         <h1>Job management that bends to how&nbsp;you&nbsp;build.</h1>
         <p class="lede">
@@ -58,13 +60,11 @@
           <a class="btn" href="https://demo.buildtrack.run">Try the demo</a>
           <a class="btn btn-ghost" href="#features">See what's inside →</a>
         </div>
-        <figure class="frame hero-frame">
-          <div class="frame-bar"><i></i><i></i><i></i><span>app.buildtrack.run</span></div>
-          <picture>
-            <source srcset="/assets/shots/home-dark.jpg" media="(prefers-color-scheme: dark)" />
-            <img src="/assets/shots/home.jpg" alt="BuildTrack home dashboard with active jobs, open invoices, pipeline and tasks" width="2160" height="1350" />
-          </picture>
+        <figure class="frame hero-frame live">
+          <div class="frame-bar"><i></i><i></i><i></i><span>app.buildtrack.run</span><b class="live-tag"><span class="pulse"></span><span id="hero-theme">BuildTrack · light</span></b></div>
+          <div id="hero-mini" role="img" aria-label="A live BuildTrack dashboard, changing theme every few seconds"></div>
         </figure>
+        <p class="hero-note">That's not a screenshot. It's live, and it's wearing a different one of BuildTrack's <span data-theme-count>32</span> themes every few seconds. Hover to hold it; <a href="#look-lab">make your own ↓</a></p>
       </section>
 
       <section class="pains wrap" aria-labelledby="pains-title">
@@ -82,6 +82,90 @@
             <h3>Your data stays yours</h3>
             <p>Run it on your own database. Export everything, any time. No per-seat lock-in, no support ticket to get your own records out.</p>
           </article>
+        </div>
+      </section>
+
+
+      <section id="look-lab" class="lab" aria-labelledby="lab-title">
+        <div class="wrap">
+          <p class="eyebrow plain">The look lab</p>
+          <h2 id="lab-title" class="section-title big">No two BuildTracks look alike.</h2>
+          <p class="lede left">Every colour, the font, the corners, light or dark: change anything, and it's remembered on every device you sign in on. Save looks as presets, or set one for the whole company. Go on, try it.</p>
+          <div class="lab-grid">
+            <div class="lab-controls">
+              <div class="lab-block">
+                <div class="lab-h">Theme <span class="muted"><span data-theme-count>32</span> to start from</span></div>
+                <div id="lab-themes" class="lab-themes"></div>
+              </div>
+              <div class="lab-row2">
+                <div class="lab-block">
+                  <div class="lab-h">Mode</div>
+                  <div id="lab-mode" class="seg"><button type="button" data-v="light">Light</button><button type="button" data-v="dark">Dark</button></div>
+                </div>
+                <div class="lab-block">
+                  <div class="lab-h">Accent</div>
+                  <div id="lab-accents" class="dots"></div>
+                </div>
+              </div>
+              <div class="lab-block">
+                <div class="lab-h">Font</div>
+                <div id="lab-font" class="seg wrap-seg"><button type="button" data-v="theme">Theme's</button><button type="button" data-v="inter" style="font-family:Inter">Inter</button><button type="button" data-v="plex" style="font-family:'IBM Plex Sans'">IBM Plex</button><button type="button" data-v="jetbrains-mono" style="font-family:'JetBrains Mono'">JetBrains Mono</button><button type="button" data-v="system" style="font-family:system-ui">System</button></div>
+              </div>
+              <div class="lab-row2">
+                <label class="lab-block"><span class="lab-h">Corners <span id="lab-radius-v" class="muted">6px</span></span><input id="lab-radius" type="range" min="0" max="20" value="6" /></label>
+                <label class="lab-block toggle"><span class="lab-h">Numbers</span><span class="sw-row"><input id="lab-mono" type="checkbox" /> Monospaced money</span></label>
+              </div>
+              <div class="lab-block">
+                <div class="lab-h">Or set any colour yourself</div>
+                <div class="pickers">
+                  <label><input type="color" data-color="background" /> Page</label>
+                  <label><input type="color" data-color="card" /> Cards</label>
+                  <label><input type="color" data-color="sidebar" /> Sidebar</label>
+                  <label><input type="color" data-color="foreground" /> Headings</label>
+                  <label><input type="color" data-color="primary" /> Accent</label>
+                  <label><input type="color" data-color="border" /> Borders</label>
+                </div>
+              </div>
+              <div class="lab-actions">
+                <button type="button" id="lab-surprise" class="btn btn-primary btn-small">✦ Surprise me</button>
+                <button type="button" id="lab-reset" class="btn btn-small">Reset</button>
+                <span id="lab-note" class="muted small"></span>
+              </div>
+            </div>
+            <div class="lab-stage">
+              <figure class="frame lab-frame"><div class="frame-bar"><i></i><i></i><i></i><span>Your BuildTrack</span></div><div id="lab-mini"></div></figure>
+              <pre class="lab-code" id="lab-code" aria-label="The theme file this look amounts to"></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wall" aria-labelledby="wall-title">
+        <div class="wrap">
+          <h2 id="wall-title" class="section-title">All <span data-theme-count>32</span> out of the box. Endless after that.</h2>
+          <p class="lede left">The BuildTrack themes, plus every <a href="https://omarchy.org">Omarchy</a> desktop theme. Import your own from a <code>colors.toml</code>. Click any to try it in the lab.</p>
+        </div>
+        <div class="wall-rows">
+          <div class="wall-track"></div>
+          <div class="wall-track reverse"></div>
+        </div>
+      </section>
+
+      <section id="agent-demo" class="agent-demo" aria-labelledby="agent-title">
+        <div class="wrap">
+          <p class="eyebrow plain">Built for the agentic era</p>
+          <h2 id="agent-title" class="section-title big">One sentence in. A different look out.</h2>
+          <p class="lede left">When the settings aren't enough, ask your agent. A theme is one small file of data, and BuildTrack's <code>AGENTS.md</code> tells any agent exactly where it goes.</p>
+          <div class="asks">
+            <button type="button" class="ask" data-look="blueprint">“Make it look like a blueprint.”</button>
+            <button type="button" class="ask" data-look="brand">“Navy and safety orange. Make it ours.”</button>
+            <button type="button" class="ask" data-look="night">“Night shift. Nothing bright.”</button>
+            <button type="button" class="ask" data-look="y1998">“Like it shipped on a CD-ROM in 1998.”</button>
+          </div>
+          <div class="agent-grid">
+            <div class="terminal"><div class="term-bar"><i></i><i></i><i></i><span>your-company/BuildTrack</span></div><div id="agent-term" class="term-body" aria-live="polite"></div></div>
+            <figure class="frame agent-frame"><div class="frame-bar"><i></i><i></i><i></i><span>Preview</span></div><div id="agent-mini"></div></figure>
+          </div>
         </div>
       </section>
 
@@ -119,14 +203,6 @@
             <p>A Gantt chart across every job, with crew assignments and progress, plus a plain list when that's all you need. Export to your calendar.</p>
           </div>
           <figure class="frame"><img src="/assets/shots/schedule.jpg" alt="Gantt chart of scheduled work across jobs" loading="lazy" width="2160" height="1350" /></figure>
-        </div>
-
-        <div class="feature">
-          <div class="feature-text">
-            <h3>Make it look like yours, down to every colour</h3>
-            <p>Start from a theme (the BuildTrack set, or Omarchy favourites like Kanagawa, Everforest and Tokyo Night) and change anything: every colour, the font, how rounded the corners are, even money in a monospaced font so columns line up. Save looks as presets, set a company theme everyone starts on, and it follows you to any device you sign in on.</p>
-          </div>
-          <figure class="frame"><img src="/assets/shots/look-customize.jpg" alt="Appearance settings with every colour of the theme editable" loading="lazy" width="2160" height="1350" /></figure>
         </div>
 
         <div class="grid-3 small-features">
@@ -185,7 +261,8 @@
           <article class="card">
             <span class="step">1</span>
             <h3>Try it in a minute</h3>
-            <p>Open the <a href="https://demo.buildtrack.run">demo</a>, or clone the repo and run <code>npm run dev</code>. It opens with sample jobs, budgets and invoices, stored in your browser. No accounts, no setup.</p>
+            <p>Open the <a href="https://demo.buildtrack.run">demo</a>, or run it on your machine with sample jobs, budgets and invoices. No accounts, no setup.</p>
+            <div class="install"><code id="install-cmd">git clone https://github.com/Cody-Design-Build/BuildTrack &amp;&amp; cd BuildTrack &amp;&amp; npm install &amp;&amp; npm run dev</code><button type="button" data-copy="install-cmd">Copy</button></div>
           </article>
           <article class="card">
             <span class="step">2</span>
@@ -222,7 +299,7 @@
     <footer class="footer">
       <div class="wrap footer-inner">
         <span class="brand small"><img src="/assets/favicon.svg" alt="" width="20" height="20" /> BuildTrack</span>
-        <span>Open source under AGPL-3.0 · Made by Cody Design Build</span>
+        <span>Built by a builder. Rebuilt by your agents. · AGPL-3.0 · Cody Design Build</span>
         <a href="https://github.com/Cody-Design-Build/BuildTrack">GitHub</a>
       </div>
     </footer>
@@ -230,5 +307,6 @@
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
       <symbol id="gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
     </svg>
+    <script type="module" src="/app.js"></script>
   </body>
 </html>
