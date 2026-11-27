@@ -12,7 +12,7 @@ Pushing to `main` deploys to https://buildtrack.run (Vercel project `buildtrack-
 
 ## The live parts
 
-The hero, the look lab, the theme wall and the agent demo aren't screenshots: `app.js` builds a miniature BuildTrack in HTML and styles it with each theme's real colours from `assets/themes.json`. When the app gains or changes themes, regenerate that file from the live demo:
+The hero and the looks section aren't screenshots: `app.js` builds a miniature BuildTrack in HTML and styles it with each theme's real colours from `assets/themes.json`. When the app gains or changes themes, regenerate that file from the live demo:
 
 ```
 node scripts/extract-themes.mjs ../BuildTrack https://demo.buildtrack.run
