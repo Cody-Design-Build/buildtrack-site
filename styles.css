@@ -170,7 +170,7 @@ section { padding: 72px 0; }
 .mini.mono-num .num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 .m-side { width: 19%; flex-shrink: 0; display: flex; flex-direction: column; gap: 0.15em; padding: 1em 0.7em; background: var(--sidebar); border-right: 1px solid var(--border); }
 .m-brand { display: flex; align-items: center; gap: 0.5em; font-weight: 700; color: var(--foreground); font-size: 1.15em; margin-bottom: 1em; }
-.m-logo { display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: calc(var(--r) * 0.7); background: var(--primary); color: var(--primary-foreground); font-size: 0.85em; }
+.m-logo { width: 1.3em; height: 1.3em; flex-shrink: 0; }
 .m-group { font-size: 0.75em; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin: 0.2em 0.6em 0.4em; }
 .m-nav { display: flex; align-items: center; gap: 0.7em; padding: 0.45em 0.6em; border-radius: var(--r); color: var(--text); }
 .m-nav i { font-style: normal; }

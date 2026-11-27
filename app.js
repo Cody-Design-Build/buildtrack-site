@@ -68,7 +68,7 @@ function miniHTML({ compact = false } = {}) {
   const gantt = GANTT.map(([n, x, w, p]) => `<div class="m-g"><span class="m-dim">${n}</span><span class="m-track"><span class="m-bar" style="left:${x}%;width:${w}%"><span style="width:${p}%"></span></span></span></div>`).join('');
   return `
     <aside class="m-side">
-      <div class="m-brand"><span class="m-logo">T</span>BuildTrack</div>
+      <div class="m-brand"><svg class="m-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="41" width="30" height="13" rx="3.5" fill="currentColor"/><rect x="17" y="25.5" width="30" height="13" rx="3.5" fill="currentColor"/><rect x="29" y="10" width="30" height="13" rx="3.5" fill="var(--primary)"/></svg>BuildTrack</div>
       <div class="m-group">Work</div>${nav}
       <div class="m-user"><span class="m-avatar">DC</span><span><b>Dana Cole</b><small>Acme Design Build Co.</small></span></div>
     </aside>
