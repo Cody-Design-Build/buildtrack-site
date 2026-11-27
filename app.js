@@ -36,6 +36,21 @@ const NAV = [
   ['Invoices', 'M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6'],
   ['Bills', 'M5 5h14v14H5zM12 8v8M9.5 10a2.5 2 0 0 1 5 0M14.5 14a2.5 2 0 0 1-5 0'],
 ];
+const RECORDS = [
+  ['Documents', 'M6 3h9l3 3v15H6zM9 11h6M9 15h6'],
+  ['People', 'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M16 4a3.5 3.5 0 0 1 0 7M18 14c2 .7 3 2.8 3 6'],
+  ['Accounts', 'M4 21V8l8-5 8 5v13M9 21v-6h6v6M8 11h2M14 11h2'],
+];
+const INVOICES = [
+  ['Invoice 12-2', 'Harper Household', 'Overdue', 'red', '$11,645'],
+  ['Invoice 8-2', 'Sam Ortiz', 'Sent', 'amber', '$12,135'],
+  ['Invoice 11-5', 'Kim & Lee', 'Paid', 'green', '$26,763'],
+];
+const TASKS = [
+  ['Walk 2200 Mesa with the clients', 'Today', false],
+  ['Order tile samples · 87th St. ADU', 'Dec 4', false],
+  ['Send change order 12-4', 'Done', true],
+];
 const JOBS = [
   ['Rivera Household', 'Oak Avenue Bathrooms', 'In progress', 'blue', '$65,465'],
   ['Patel Household', '87th St. ADU', 'In progress', 'blue', '$219,050'],
@@ -53,6 +68,9 @@ const GANTT = [
 
 function miniHTML({ compact = false } = {}) {
   const nav = NAV.map(([n, d], i) => `<span class="m-nav${i === 0 ? ' on' : ''}">${ICON(d)}<i>${n}</i></span>`).join('');
+  const records = RECORDS.map(([n, d]) => `<span class="m-nav">${ICON(d)}<i>${n}</i></span>`).join('');
+  const invoices = INVOICES.map(([n, who, st, slot, t]) => `<div class="m-row m-row3"><span class="m-strong">${n}</span><span class="m-dim">${who}</span><span class="m-pill" style="--c: var(--c-${slot})">${st}</span><span class="num">${t}</span></div>`).join('');
+  const tasks = TASKS.map(([t, when, done]) => `<div class="m-task${done ? ' done' : ''}"><span class="m-check"></span><span class="m-strong">${t}</span><span class="m-dim">${when}</span></div>`).join('');
   const stats = [
     ['Active contracts', '$1,672,957', '6 jobs underway'],
     ['Open invoices', '$83,340', '5 awaiting payment'],
@@ -69,7 +87,7 @@ function miniHTML({ compact = false } = {}) {
   return `
     <aside class="m-side">
       <div class="m-brand"><svg class="m-logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="41" width="30" height="13" rx="3.5" fill="currentColor"/><rect x="17" y="25.5" width="30" height="13" rx="3.5" fill="currentColor"/><rect x="29" y="10" width="30" height="13" rx="3.5" fill="var(--primary)"/></svg>BuildTrack</div>
-      <div class="m-group">Work</div>${nav}
+      <div class="m-group">Work</div>${nav}${compact ? '' : `<div class="m-group">Records</div>${records}`}
       <div class="m-user"><span class="m-avatar">DC</span><span><b>Dana Cole</b><small>Acme Design Build Co.</small></span></div>
     </aside>
     <div class="m-main">
@@ -82,13 +100,19 @@ function miniHTML({ compact = false } = {}) {
           <div class="m-card"><div class="m-head">Active jobs <span class="m-count">5</span></div>${rows}<div class="m-row m-total"><span>Total</span><span></span><span></span><span class="num">$967,720</span></div></div>
           ${compact ? '' : `<div class="m-card"><div class="m-head">Schedule · 2243 Lincoln</div>${gantt}<div class="m-actions"><span class="m-btn danger">Void</span><span class="m-btn">Send</span><span class="m-btn primary">Approve</span></div></div>`}
         </div>
+        ${compact ? '' : `<div class="m-cols">
+          <div class="m-card"><div class="m-head">Open invoices <span class="m-count">3</span></div>${invoices}</div>
+          <div class="m-card"><div class="m-head">My tasks <span class="m-count">2</span></div>${tasks}</div>
+        </div>`}
       </div>
     </div>`;
 }
 
+// The host is a size container, so the app inside scales with its own width
+// (cqi units), like a picture: nothing reflows or overflows at any size.
 function makeMini(el, opts) {
-  el.classList.add('mini');
-  el.innerHTML = miniHTML(opts);
+  el.classList.add('mini-host');
+  el.innerHTML = `<div class="mini">${miniHTML(opts)}</div>`;
   return el;
 }
 

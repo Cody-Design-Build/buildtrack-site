@@ -149,9 +149,8 @@ section { padding: 72px 0; }
    The live mini BuildTrack. Every colour comes from CSS variables set by
    app.js from a real theme (assets/themes.json).
    ====================================================================== */
+.mini-host { --r: 6px; --font: 'Inter', sans-serif; container-type: inline-size; width: 100%; }
 .mini {
-  --r: 6px;
-  --font: 'Inter', sans-serif;
   display: flex;
   aspect-ratio: 16 / 10;
   width: 100%;
@@ -159,7 +158,8 @@ section { padding: 72px 0; }
   background: var(--background);
   color: var(--text);
   font-family: var(--font);
-  font-size: clamp(7px, 1.05vw, 12.5px);
+  /* 1em = 1/96 of the app's width, whatever size it's shown at */
+  font-size: 1.2cqi;
   line-height: 1.35;
   text-align: left;
   transition: background-color 0.5s, color 0.5s;
@@ -167,7 +167,7 @@ section { padding: 72px 0; }
 .mini * { transition: background-color 0.5s, color 0.5s, border-color 0.5s, border-radius 0.3s; }
 .mini svg { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 .mini .num { font-variant-numeric: tabular-nums; }
-.mini.mono-num .num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.mono-num .num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
 .m-side { width: 19%; flex-shrink: 0; display: flex; flex-direction: column; gap: 0.15em; padding: 1em 0.7em; background: var(--sidebar); border-right: 1px solid var(--border); }
 .m-brand { display: flex; align-items: center; gap: 0.5em; font-weight: 700; color: var(--foreground); font-size: 1.15em; margin-bottom: 1em; }
 .m-logo { width: 1.3em; height: 1.3em; flex-shrink: 0; }
@@ -179,12 +179,12 @@ section { padding: 72px 0; }
 .m-user b { display: block; color: var(--foreground); font-weight: 600; }
 .m-user small { display: block; color: var(--muted-foreground); font-size: 0.85em; }
 .m-avatar { display: grid; place-items: center; width: 2.2em; height: 2.2em; border-radius: calc(var(--r) * 0.8); background: var(--c-orange); color: #fff; font-weight: 700; font-size: 0.85em; flex-shrink: 0; }
-.mini.side-dark .m-side { border-right-color: transparent; }
-.mini.side-dark .m-side, .mini.side-dark .m-brand, .mini.side-dark .m-user b { color: #e8edf5; }
-.mini.side-dark .m-nav { color: #b9c4d6; }
-.mini.side-dark .m-nav.on { background: rgb(255 255 255 / 0.1); color: #fff; }
-.mini.side-dark .m-user { border-top-color: rgb(255 255 255 / 0.12); }
-.mini.side-dark .m-user small { color: #93a0b5; }
+.side-dark .m-side { border-right-color: transparent; }
+.side-dark .m-side, .side-dark .m-brand, .side-dark .m-user b { color: #e8edf5; }
+.side-dark .m-nav { color: #b9c4d6; }
+.side-dark .m-nav.on { background: rgb(255 255 255 / 0.1); color: #fff; }
+.side-dark .m-user { border-top-color: rgb(255 255 255 / 0.12); }
+.side-dark .m-user small { color: #93a0b5; }
 .m-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .m-top { display: flex; align-items: center; gap: 0.6em; padding: 0.8em 1.4em; border-bottom: 1px solid var(--border); }
 .m-search { flex: 1; max-width: 45%; padding: 0.45em 0.8em; border: 1px solid var(--border); border-radius: var(--r); background: var(--card); color: var(--faint); white-space: nowrap; overflow: hidden; }
@@ -199,12 +199,13 @@ section { padding: 72px 0; }
 .m-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--r); min-width: 0; }
 .m-stat { padding: 0.9em 1em; display: flex; flex-direction: column; gap: 0.25em; }
 .m-label { color: var(--muted-foreground); }
-.m-stat b { font-size: 1.55em; color: var(--foreground); letter-spacing: -0.01em; }
+.m-stat b { font-size: 1.45em; color: var(--foreground); letter-spacing: -0.01em; white-space: nowrap; }
+.m-stat > * { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .m-stat small { color: var(--muted-foreground); font-size: 0.85em; }
 .m-cols { display: grid; grid-template-columns: 1.35fr 1fr; gap: 0.8em; min-height: 0; }
 .m-head { display: flex; align-items: center; justify-content: space-between; padding: 0.8em 1em; font-weight: 600; color: var(--foreground); border-bottom: 1px solid var(--border); }
 .m-count { padding: 0.05em 0.6em; border-radius: 999px; background: var(--muted); color: var(--muted-foreground); font-weight: 500; font-size: 0.85em; }
-.m-row { display: grid; grid-template-columns: 1.1fr 1.3fr 0.9fr 0.8fr; align-items: center; gap: 0.6em; padding: 0.55em 1em; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.m-row { display: grid; grid-template-columns: 1.15fr 1.25fr 0.85fr 0.95fr; align-items: center; gap: 0.6em; padding: 0.55em 1em; border-bottom: 1px solid var(--border); white-space: nowrap; }
 .m-row > * { overflow: hidden; text-overflow: ellipsis; }
 .m-row .num { text-align: right; color: var(--foreground); }
 .m-row.m-total { background: var(--muted); border-bottom: 0; color: var(--muted-foreground); }
@@ -216,6 +217,12 @@ section { padding: 72px 0; }
 .m-track { position: relative; height: 1.1em; background: var(--muted); border-radius: calc(var(--r) * 0.6); }
 .m-bar { position: absolute; top: 0; bottom: 0; border-radius: calc(var(--r) * 0.6); background: color-mix(in oklab, var(--info) 35%, var(--card)); overflow: hidden; }
 .m-bar span { display: block; height: 100%; background: var(--info); }
+.m-task { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.7em; padding: 0.55em 1em; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.m-task > * { overflow: hidden; text-overflow: ellipsis; }
+.m-task:last-child, .m-row:last-child { border-bottom: 0; }
+.m-check { width: 1.1em; height: 1.1em; border: 1.5px solid var(--border-strong); border-radius: 50%; }
+.m-task.done .m-check { background: var(--success); border-color: var(--success); }
+.m-task.done .m-strong { color: var(--faint); text-decoration: line-through; }
 .m-actions { display: flex; justify-content: flex-end; gap: 0.5em; padding: 0.8em 1em; }
 
 /* ======================================================================
