@@ -29,7 +29,7 @@
           <span>BuildTrack</span>
         </a>
         <nav class="nav-links" aria-label="Sections">
-          <a href="#look-lab">Look lab</a>
+          <a href="#looks">Looks</a>
           <a href="https://demo.buildtrack.run">Demo</a>
           <a href="#features">Features</a>
           <a href="#agents">For agents</a>
@@ -62,9 +62,9 @@
         </div>
         <figure class="frame hero-frame live">
           <div class="frame-bar"><i></i><i></i><i></i><span>app.buildtrack.run</span><b class="live-tag"><span class="pulse"></span><span id="hero-theme">BuildTrack · light</span></b></div>
-          <div id="hero-mini" role="img" aria-label="A live BuildTrack dashboard, changing theme every few seconds"></div>
+          <div id="hero-mini" role="img" aria-label="A live BuildTrack dashboard, changing look every few seconds"></div>
         </figure>
-        <p class="hero-note">That's not a screenshot. It's live, and it's wearing a different one of BuildTrack's <span data-theme-count>32</span> themes every few seconds. Hover to hold it; <a href="#look-lab">make your own ↓</a></p>
+        <p class="hero-note">That's not a screenshot. It's the real layout, cycling through a few of BuildTrack's looks. Hover to hold it; <a href="#looks">try them yourself ↓</a></p>
       </section>
 
       <section class="pains wrap" aria-labelledby="pains-title">
@@ -86,15 +86,15 @@
       </section>
 
 
-      <section id="look-lab" class="lab" aria-labelledby="lab-title">
+      <section id="looks" class="lab" aria-labelledby="lab-title">
         <div class="wrap">
-          <p class="eyebrow plain">The look lab</p>
-          <h2 id="lab-title" class="section-title big">No two BuildTracks look alike.</h2>
-          <p class="lede left">Every colour, the font, the corners, light or dark: change anything, and it's remembered on every device you sign in on. Save looks as presets, or set one for the whole company. Go on, try it.</p>
+          <p class="eyebrow plain">Make it look like yours</p>
+          <h2 id="lab-title" class="section-title big">Blueprint, kraft paper, hi&#8209;vis or your own brand.</h2>
+          <p class="lede left">Pick a starting theme, light or dark, then change the accent, font, corners or any single colour in Settings → Appearance. Everyone can have their own look, or an admin sets one for the whole company. Try it:</p>
           <div class="lab-grid">
             <div class="lab-controls">
               <div class="lab-block">
-                <div class="lab-h">Theme <span class="muted"><span data-theme-count>32</span> to start from</span></div>
+                <div class="lab-h">Theme</div>
                 <div id="lab-themes" class="lab-themes"></div>
               </div>
               <div class="lab-row2">
@@ -111,60 +111,15 @@
                 <div class="lab-h">Font</div>
                 <div id="lab-font" class="seg wrap-seg"><button type="button" data-v="theme">Theme's</button><button type="button" data-v="inter" style="font-family:Inter">Inter</button><button type="button" data-v="plex" style="font-family:'IBM Plex Sans'">IBM Plex</button><button type="button" data-v="jetbrains-mono" style="font-family:'JetBrains Mono'">JetBrains Mono</button><button type="button" data-v="system" style="font-family:system-ui">System</button></div>
               </div>
-              <div class="lab-row2">
-                <label class="lab-block"><span class="lab-h">Corners <span id="lab-radius-v" class="muted">6px</span></span><input id="lab-radius" type="range" min="0" max="20" value="6" /></label>
-                <label class="lab-block toggle"><span class="lab-h">Numbers</span><span class="sw-row"><input id="lab-mono" type="checkbox" /> Monospaced money</span></label>
-              </div>
-              <div class="lab-block">
-                <div class="lab-h">Or set any colour yourself</div>
-                <div class="pickers">
-                  <label><input type="color" data-color="background" /> Page</label>
-                  <label><input type="color" data-color="card" /> Cards</label>
-                  <label><input type="color" data-color="sidebar" /> Sidebar</label>
-                  <label><input type="color" data-color="foreground" /> Headings</label>
-                  <label><input type="color" data-color="primary" /> Accent</label>
-                  <label><input type="color" data-color="border" /> Borders</label>
-                </div>
-              </div>
+              <label class="lab-block"><span class="lab-h">Corners <span id="lab-radius-v" class="muted">6px</span></span><input id="lab-radius" type="range" min="0" max="20" value="6" /></label>
               <div class="lab-actions">
-                <button type="button" id="lab-surprise" class="btn btn-primary btn-small">✦ Surprise me</button>
                 <button type="button" id="lab-reset" class="btn btn-small">Reset</button>
                 <span id="lab-note" class="muted small"></span>
               </div>
             </div>
             <div class="lab-stage">
               <figure class="frame lab-frame"><div class="frame-bar"><i></i><i></i><i></i><span>Your BuildTrack</span></div><div id="lab-mini"></div></figure>
-              <pre class="lab-code" id="lab-code" aria-label="The theme file this look amounts to"></pre>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="wall" aria-labelledby="wall-title">
-        <div class="wrap">
-          <h2 id="wall-title" class="section-title">All <span data-theme-count>32</span> out of the box. Endless after that.</h2>
-          <p class="lede left">The BuildTrack themes, plus every <a href="https://omarchy.org">Omarchy</a> desktop theme. Import your own from a <code>colors.toml</code>. Click any to try it in the lab.</p>
-        </div>
-        <div class="wall-rows">
-          <div class="wall-track"></div>
-          <div class="wall-track reverse"></div>
-        </div>
-      </section>
-
-      <section id="agent-demo" class="agent-demo" aria-labelledby="agent-title">
-        <div class="wrap">
-          <p class="eyebrow plain">Built for the agentic era</p>
-          <h2 id="agent-title" class="section-title big">One sentence in. A different look out.</h2>
-          <p class="lede left">When the settings aren't enough, ask your agent. A theme is one small file of data, and BuildTrack's <code>AGENTS.md</code> tells any agent exactly where it goes.</p>
-          <div class="asks">
-            <button type="button" class="ask" data-look="blueprint">“Make it look like a blueprint.”</button>
-            <button type="button" class="ask" data-look="brand">“Navy and safety orange. Make it ours.”</button>
-            <button type="button" class="ask" data-look="night">“Night shift. Nothing bright.”</button>
-            <button type="button" class="ask" data-look="y1998">“Like it shipped on a CD-ROM in 1998.”</button>
-          </div>
-          <div class="agent-grid">
-            <div class="terminal"><div class="term-bar"><i></i><i></i><i></i><span>your-company/BuildTrack</span></div><div id="agent-term" class="term-body" aria-live="polite"></div></div>
-            <figure class="frame agent-frame"><div class="frame-bar"><i></i><i></i><i></i><span>Preview</span></div><div id="agent-mini"></div></figure>
           </div>
         </div>
       </section>
@@ -214,7 +169,7 @@
           <div><h4>Shared files</h4><p>Signed proposals and bill attachments are stored once and open for the whole team.</p></div>
           <div><h4>Tasks</h4><p>Follow-ups and to-dos by job, type and who's on it.</p></div>
           <div><h4>Plugins</h4><p>Every feature is a plugin: switch off what you don't use, or have your agent build your own.</p></div>
-          <div><h4>Light, dark and 30+ themes</h4><p>Dark mode, the BuildTrack and Omarchy themes, or import your own.</p></div>
+          <div><h4>Your look</h4><p>Light or dark, <span data-theme-count>14</span> themes to start from, and any colour, font or corner you like.</p></div>
         </div>
       </section>
 
@@ -278,7 +233,7 @@
       </section>
 
       <section class="origin wrap">
-        <figure class="frame origin-frame"><img src="/assets/shots/settings-themes.jpg" alt="The theme gallery in Appearance settings, shown in the Tokyo Night dark theme" loading="lazy" width="2160" height="1350" /></figure>
+        <figure class="frame origin-frame"><img src="/assets/shots/settings-themes.jpg" alt="The theme gallery in Appearance settings, shown in the Blueprint dark theme" loading="lazy" width="2160" height="1350" /></figure>
         <div>
           <h2 class="section-title">Built by a builder.</h2>
           <p class="lede">
