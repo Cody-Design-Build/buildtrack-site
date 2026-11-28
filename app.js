@@ -100,17 +100,17 @@ function makeMini(el, opts) {
   return el;
 }
 
-/** Styles a mini app with a theme's colours ({mode}). */
-function paint(el, theme, { mode = 'light' } = {}) {
+/** Styles a mini app with a theme's colours, plus optional changes ({mode, colors, font, radius}). */
+function paint(el, theme, { mode = 'light', colors = {}, font, radius = 6 } = {}) {
   const m = mode === 'dark' && theme.dark ? 'dark' : theme.light ? 'light' : 'dark';
-  for (const [k, v] of Object.entries(theme[m])) el.style.setProperty(`--${k}`, v);
-  el.style.setProperty('--font', FONTS[theme.font ?? 'inter']);
-  el.style.setProperty('--r', '6px');
+  for (const [k, v] of Object.entries({ ...theme[m], ...colors })) el.style.setProperty(`--${k}`, v);
+  el.style.setProperty('--font', FONTS[font ?? theme.font ?? 'inter']);
+  el.style.setProperty('--r', `${radius}px`);
   el.dataset.mode = m;
 }
 
 // ---------- page ----------
-const themes = await (await fetch('/assets/themes.json?v=2')).json();
+const themes = await (await fetch('/assets/themes.json?v=3')).json();
 const byId = Object.fromEntries(themes.map((t) => [t.id, t]));
 
 // Hero: a live BuildTrack in its own look, light or dark to match the visitor.
@@ -119,6 +119,32 @@ const dark = matchMedia('(prefers-color-scheme: dark)');
 const heroShow = () => paint(hero, byId.buildtrack, { mode: dark.matches ? 'dark' : 'light' });
 heroShow();
 dark.addEventListener('change', heroShow);
+
+// Looks: the same BuildTrack in a few very different themes.
+const LOOKS = [
+  { id: 'blueprint', mode: 'dark', big: true },
+  { id: 'kraft', mode: 'light' },
+  { id: 'hi-vis', mode: 'dark' },
+  { id: 'sage', mode: 'light' },
+  { id: 'walnut', mode: 'dark' },
+  // Somebody's own brand: Graphite with a teal accent, rounder corners and IBM Plex.
+  { id: 'graphite', mode: 'light', label: 'Your brand', colors: { primary: '#0f766e', 'primary-foreground': '#ffffff', accent: '#e6f2f0' }, font: 'plex', radius: 12 },
+];
+const grid = document.getElementById('looks-grid');
+for (const look of LOOKS) {
+  const t = byId[look.id];
+  if (!t) continue;
+  const fig = document.createElement('figure');
+  fig.className = `look${look.big ? ' big' : ''}`;
+  const host = document.createElement('div');
+  fig.append(host);
+  makeMini(host);
+  paint(host, t, look);
+  const cap = document.createElement('figcaption');
+  cap.innerHTML = look.label ? `<b>${look.label}</b> <span class="cap-more">your colours, font and corners</span>` : `<b>${t.name}</b> ${look.mode}`;
+  fig.append(cap);
+  grid.append(fig);
+}
 
 // Copy buttons.
 document.querySelectorAll('[data-copy]').forEach((b) => {
