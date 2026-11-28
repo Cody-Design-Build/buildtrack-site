@@ -122,7 +122,7 @@ dark.addEventListener('change', heroShow);
 
 // Looks: the same BuildTrack in a few very different themes.
 const LOOKS = [
-  { id: 'omarchy-tokyo-night', mode: 'dark', label: 'Tokyo Night', note: 'from Omarchy', big: true },
+  { id: 'omarchy-tokyo-night', mode: 'dark', label: 'Tokyo Night', note: 'from Omarchy', radius: 0, big: true },
   { id: 'kraft', mode: 'light' },
   { id: 'hi-vis', mode: 'dark' },
   { id: 'sage', mode: 'light' },
