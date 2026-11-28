@@ -110,7 +110,7 @@ function paint(el, theme, { mode = 'light' } = {}) {
 }
 
 // ---------- page ----------
-const themes = await (await fetch('/assets/themes.json')).json();
+const themes = await (await fetch('/assets/themes.json?v=2')).json();
 const byId = Object.fromEntries(themes.map((t) => [t.id, t]));
 
 // Hero: a live BuildTrack in its own look, light or dark to match the visitor.
