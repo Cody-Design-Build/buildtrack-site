@@ -30,13 +30,22 @@ for (const t of themes) {
       const probe = document.createElement('div'); document.body.append(probe);
       const c = document.createElement('canvas'); c.width = c.height = 1; const x = c.getContext('2d', { willReadFrequently: true });
       const hex = (v) => { probe.style.color = `var(--${v})`; x.clearRect(0, 0, 1, 1); x.fillStyle = '#000'; x.fillStyle = getComputedStyle(probe).color; x.fillRect(0, 0, 1, 1); const [r, g, b] = x.getImageData(0, 0, 1, 1).data; return '#' + [r, g, b].map((n) => n.toString(16).padStart(2, '0')).join(''); };
-      return { mode: document.documentElement.dataset.mode, theme: document.documentElement.dataset.theme, colors: Object.fromEntries(tokens.map((k) => [k, hex(k)])) };
+      const root = getComputedStyle(document.documentElement);
+      const px = document.createElement('div'); px.style.width = 'var(--radius)'; document.body.append(px);
+      const radius = Math.round(parseFloat(getComputedStyle(px).width) || 0);
+      const stack = root.getPropertyValue('--app-font');
+      const font = /Nunito/.test(stack) ? 'nunito' : /JetBrains/.test(stack) ? 'jetbrains-mono' : /Plex/.test(stack) ? 'plex' : 'inter';
+      return { mode: document.documentElement.dataset.mode, theme: document.documentElement.dataset.theme, font, radius, colors: Object.fromEntries(tokens.map((k) => [k, hex(k)])) };
     }, TOKENS);
     await ctx.close();
     if (r.theme !== t.id) throw new Error(`${t.id} did not load (got ${r.theme})`);
     modes[r.mode] ??= r.colors; // single-mode themes report their one mode twice
+    t.font = r.font;
+    t.radius = r.radius;
   }
-  out.push({ ...t, ...modes });
+  // The app groups themes by style (Settings → Appearance): mono is Terminal, rounded Nunito is Soft.
+  const style = t.font === 'jetbrains-mono' ? 'Terminal' : t.font === 'nunito' ? 'Soft' : 'Clean';
+  out.push({ ...t, style, ...modes });
   process.stdout.write(`${t.id}${modes.light && modes.dark ? '' : ' (one mode)'}  `);
 }
 await browser.close();

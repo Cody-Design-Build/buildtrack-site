@@ -286,6 +286,20 @@ section { padding: 72px 0; }
 .ask-btns span { padding: 6px 16px; border-radius: 7px; border: 1px solid #3a3742; font-size: 13px; font-weight: 600; }
 .ask-btns .yes { background: #f4f2ee; color: #141317; border-color: #f4f2ee; }
 .chat .term-note { padding: 0 20px 16px; }
+/* ======================================================================
+   Looks
+   ====================================================================== */
+.looks-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+.look { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.look:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgb(0 0 0 / 0.06), 0 24px 50px -16px rgb(0 0 0 / 0.3); }
+.look.big { grid-column: span 2; grid-row: span 2; }
+.look .mini-host { height: 100%; }
+.look .mini { height: 100%; aspect-ratio: auto; min-height: 100%; }
+.look:not(.big) .mini { aspect-ratio: 16 / 10; }
+.look figcaption { position: absolute; left: 10px; bottom: 10px; display: inline-flex; gap: 6px; align-items: baseline; padding: 5px 10px; border-radius: 999px; background: rgb(15 15 18 / 0.78); color: #f4f2ee; font-size: 12px; backdrop-filter: blur(6px); }
+.look figcaption b { font-weight: 650; }
+@media (max-width: 760px) { .looks-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; } .look figcaption { left: 6px; bottom: 6px; padding: 3px 8px; font-size: 11px; } .look.big { grid-row: auto; } .look.big .mini { aspect-ratio: 16 / 10; } }
+@media (prefers-reduced-motion: reduce) { .look { transition: none; } }
 .code-card { background: #1b1a20; border: 1px solid #2f2c36; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
 .code-card pre { margin: 0; padding: 18px 20px; font: 13px/1.7 'JetBrains Mono', ui-monospace, monospace; color: #d9d6df; white-space: pre-wrap; overflow-wrap: anywhere; }
 .code-card .k { color: #bb9af7; }

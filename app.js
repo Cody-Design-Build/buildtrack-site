@@ -5,6 +5,7 @@ const FONTS = {
   inter: "'Inter', ui-sans-serif, system-ui, sans-serif",
   system: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   plex: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
+  nunito: "'Nunito', ui-rounded, ui-sans-serif, system-ui, sans-serif",
   'jetbrains-mono': "'JetBrains Mono', ui-monospace, monospace",
 };
 
@@ -101,7 +102,7 @@ function makeMini(el, opts) {
 }
 
 /** Styles a mini app with a theme's colours, plus optional changes ({mode, colors, font, radius}). */
-function paint(el, theme, { mode = 'light', colors = {}, font, radius = 6 } = {}) {
+function paint(el, theme, { mode = 'light', colors = {}, font, radius = theme.radius ?? 6 } = {}) {
   const m = mode === 'dark' && theme.dark ? 'dark' : theme.light ? 'light' : 'dark';
   for (const [k, v] of Object.entries({ ...theme[m], ...colors })) el.style.setProperty(`--${k}`, v);
   el.style.setProperty('--font', FONTS[font ?? theme.font ?? 'inter']);
@@ -110,7 +111,7 @@ function paint(el, theme, { mode = 'light', colors = {}, font, radius = 6 } = {}
 }
 
 // ---------- page ----------
-const themes = await (await fetch('/assets/themes.json?v=4')).json();
+const themes = await (await fetch('/assets/themes.json?v=5')).json();
 const byId = Object.fromEntries(themes.map((t) => [t.id, t]));
 
 // Hero: a live BuildTrack in its own look, light or dark to match the visitor.
@@ -122,8 +123,8 @@ dark.addEventListener('change', heroShow);
 
 // Looks: the same BuildTrack in a few very different themes.
 const LOOKS = [
-  { id: 'omarchy-tokyo-night', mode: 'dark', label: 'Tokyo Night', note: 'from Omarchy', radius: 0, big: true },
-  { id: 'kraft', mode: 'light' },
+  { id: 'omarchy-tokyo-night', mode: 'dark', big: true },
+  { id: 'lilac', mode: 'light' },
   { id: 'hi-vis', mode: 'dark' },
   { id: 'sage', mode: 'light' },
   { id: 'concrete', mode: 'light' },
@@ -141,7 +142,7 @@ for (const look of LOOKS) {
   makeMini(host);
   paint(host, t, look);
   const cap = document.createElement('figcaption');
-  cap.innerHTML = look.note ? `<b>${look.label}</b> ${look.note}` : look.label ? `<b>${look.label}</b> <span class="cap-more">your colours, font and corners</span>` : `<b>${t.name}</b> ${look.mode}`;
+  cap.innerHTML = look.label ? `<b>${look.label}</b> <span class="cap-more">your colours, font and corners</span>` : `<b>${t.name}</b> ${(t.style ?? '').toLowerCase()}${t.light && t.dark ? `, ${look.mode}` : ''}`;
   fig.append(cap);
   grid.append(fig);
 }
