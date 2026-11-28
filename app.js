@@ -26,9 +26,9 @@ const RECORDS = [
   ['Accounts', 'M4 21V8l8-5 8 5v13M9 21v-6h6v6M8 11h2M14 11h2'],
 ];
 const INVOICES = [
-  ['Invoice 12-2', 'Harper Household', 'Overdue', 'red', '$11,645'],
-  ['Invoice 8-2', 'Sam Ortiz', 'Sent', 'amber', '$12,135'],
-  ['Invoice 11-5', 'Kim & Lee', 'Paid', 'green', '$26,763'],
+  ['Invoice 12-2', 'Harper Household', 'Overdue', 'red', '$15,139'],
+  ['Invoice 8-2', 'Sam Ortiz', 'Sent', 'amber', '$15,776'],
+  ['Invoice 11-5', 'Kim & Lee', 'Paid', 'green', '$34,792'],
 ];
 const TASKS = [
   ['Walk 2200 Mesa with the clients', 'Today', false],
@@ -36,11 +36,11 @@ const TASKS = [
   ['Send change order 12-4', 'Done', true],
 ];
 const JOBS = [
-  ['Rivera Household', 'Oak Avenue Bathrooms', 'In progress', 'blue', '$65,465'],
-  ['Patel Household', '87th St. ADU', 'In progress', 'blue', '$219,050'],
-  ['Kim & Lee', '1448 Elm · Full remodel', 'Approved', 'green', '$535,255'],
-  ['Northgate Homes', '2200 Mesa · ADU', 'Bidding', 'amber', '$105,950'],
-  ['Brooks Family', '77 Juniper · Addition', 'Lead', 'purple', '$42,000'],
+  ['Rivera Household', 'Oak Avenue Bathrooms', 'In progress', 'blue', '$85,520'],
+  ['Patel Household', '87th St. ADU', 'In progress', 'blue', '$284,795'],
+  ['Kim & Lee', '1448 Elm · Full remodel', 'Approved', 'green', '$696,419'],
+  ['Northgate Homes', '2200 Mesa · ADU', 'Bidding', 'amber', '$137,845'],
+  ['Brooks Family', '77 Juniper · Addition', 'Lead', 'purple', '$54,600'],
 ];
 const GANTT = [
   ['Demolition', 4, 18, 100],
@@ -56,9 +56,9 @@ function miniHTML({ compact = false } = {}) {
   const invoices = INVOICES.map(([n, who, st, slot, t]) => `<div class="m-row m-row3"><span class="m-strong">${n}</span><span class="m-dim">${who}</span><span class="m-pill" style="--c: var(--c-${slot})">${st}</span><span class="num">${t}</span></div>`).join('');
   const tasks = TASKS.map(([t, when, done]) => `<div class="m-task${done ? ' done' : ''}"><span class="m-check"></span><span class="m-strong">${t}</span><span class="m-dim">${when}</span></div>`).join('');
   const stats = [
-    ['Active contracts', '$1,672,957', '6 jobs underway'],
-    ['Open invoices', '$83,340', '5 awaiting payment'],
-    ['Pipeline', '$45,800', '5 leads & estimates'],
+    ['Active contracts', '$2,178,255', '6 jobs underway'],
+    ['Open invoices', '$108,327', '5 awaiting payment'],
+    ['Pipeline', '$59,550', '5 leads & estimates'],
     ['Margin', '15.2%', 'across approved work'],
   ]
     .slice(0, compact ? 3 : 4)
@@ -81,7 +81,7 @@ function miniHTML({ compact = false } = {}) {
         <div class="m-title">Good morning, Dana</div>
         <div class="m-stats">${stats}</div>
         <div class="m-cols">
-          <div class="m-card"><div class="m-head">Active jobs <span class="m-count">5</span></div>${rows}<div class="m-row m-total"><span>Total</span><span></span><span></span><span class="num">$967,720</span></div></div>
+          <div class="m-card"><div class="m-head">Active jobs <span class="m-count">5</span></div>${rows}<div class="m-row m-total"><span>Total</span><span></span><span></span><span class="num">$1,259,179</span></div></div>
           ${compact ? '' : `<div class="m-card"><div class="m-head">Schedule · 2243 Lincoln</div>${gantt}<div class="m-actions"><span class="m-btn danger">Void</span><span class="m-btn">Send</span><span class="m-btn primary">Approve</span></div></div>`}
         </div>
         ${compact ? '' : `<div class="m-cols">
