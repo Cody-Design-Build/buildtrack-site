@@ -126,7 +126,7 @@ const LOOKS = [
   { id: 'kraft', mode: 'light' },
   { id: 'hi-vis', mode: 'dark' },
   { id: 'sage', mode: 'light' },
-  { id: 'walnut', mode: 'dark' },
+  { id: 'omarchy-tokyo-night', mode: 'dark', label: 'Tokyo Night', note: 'from Omarchy' },
   // Somebody's own brand: Graphite with a teal accent, rounder corners and IBM Plex.
   { id: 'graphite', mode: 'light', label: 'Your brand', colors: { primary: '#0f766e', 'primary-foreground': '#ffffff', accent: '#e6f2f0' }, font: 'plex', radius: 12 },
 ];
@@ -141,7 +141,7 @@ for (const look of LOOKS) {
   makeMini(host);
   paint(host, t, look);
   const cap = document.createElement('figcaption');
-  cap.innerHTML = look.label ? `<b>${look.label}</b> <span class="cap-more">your colours, font and corners</span>` : `<b>${t.name}</b> ${look.mode}`;
+  cap.innerHTML = look.note ? `<b>${look.label}</b> ${look.note}` : look.label ? `<b>${look.label}</b> <span class="cap-more">your colours, font and corners</span>` : `<b>${t.name}</b> ${look.mode}`;
   fig.append(cap);
   grid.append(fig);
 }
