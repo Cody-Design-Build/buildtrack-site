@@ -33,7 +33,7 @@
           <a href="#looks">Looks</a>
           <a href="https://demo.buildtrack.run">Demo</a>
           <a href="#features">Features</a>
-          <a href="#agents">For agents</a>
+          <a href="#mcp">For agents</a>
           <a href="#own-it">Own it</a>
         </nav>
         <a class="btn btn-small" href="https://github.com/Cody-Design-Build/BuildTrack">
@@ -46,7 +46,7 @@
     <main>
       <section class="hero wrap">
         <div class="hero-bg" aria-hidden="true"></div>
-        <p class="eyebrow"><span class="dot"></span> Open source · Built for the agentic era</p>
+        <p class="eyebrow"><span class="dot"></span> Open source · Agent first · MCP built in</p>
         <h1>Job management that bends to how&nbsp;you&nbsp;build.</h1>
         <p class="lede">
           For general contractors, remodelers, trades and anyone else who works for customers on a jobsite: jobs,
@@ -122,11 +122,40 @@
               </div>
             </div>
           </div>
-          <div class="mcp-card">
-            <span class="soon">In the works</span>
-            <div>
-              <h3>A BuildTrack MCP server, with skills</h3>
-              <p>Plugins let your agent change BuildTrack. The MCP server will let it <em>use</em> BuildTrack: look up a job, draft a change order, chase an overdue invoice, from Claude or any agent that speaks MCP. It's built on the new MCP spec (what people are calling MCP&nbsp;2.0), so the server ships skills that teach your agent how BuildTrack works, runs longer work (a month of bills, a full job report) as tasks, and stops to ask you before anything it can't undo.</p>
+        </div>
+      </section>
+
+      <section id="mcp" class="mcp" aria-labelledby="mcp-title">
+        <div class="wrap">
+          <p class="eyebrow plain">MCP built in</p>
+          <h2 id="mcp-title" class="section-title big">Your AI agent can run BuildTrack.</h2>
+          <p class="lede left">Plugins let your agent <em>change</em> BuildTrack. Its own MCP server, on the new MCP spec (what people are calling MCP&nbsp;2.0), lets your agent <em>use</em> it: look up a job, write a proposal, bill a job, pay a bill, put work out to bid, all as you.</p>
+          <div class="plug-grid">
+            <ul class="plug-points">
+              <li><b>Connect in a minute.</b> Add your BuildTrack address plus <code>/mcp</code> as a connector in Claude, or <code>claude mcp add</code> in Claude Code. You sign in as usual and approve the agent; it acts as you, with your access and nothing more.</li>
+              <li><b>Does the work, not just reports.</b> Proposals, change orders, progress invoices, bills and payments, bid packages and awards, tasks, settings and the team, through the same rules as the app.</li>
+              <li><b>Asks before anything that matters.</b> Sending, approving, payments, awards and team changes wait for your yes, in a form right in the chat.</li>
+              <li><b>Skills your company owns.</b> Each plugin ships skills that teach agents how it works. Edit them, turn them off or add your own in Settings → Agents, or just ask the agent to.</li>
+              <li><b>Follows your plugins.</b> Turn a plugin off and its tools and skills are gone for every agent; turn one on and it's there on the next request. Nothing to reinstall.</li>
+            </ul>
+            <div class="chat" role="img" aria-label="Example of Claude billing a job in BuildTrack and asking before marking the invoice sent">
+              <div class="term-bar"><i></i><i></i><i></i><span>Claude · BuildTrack connected</span></div>
+              <div class="chat-body">
+                <p class="msg you">Tile's done at 538 Market. Bill them for it.</p>
+                <ul class="calls">
+                  <li><code>job_billing</code> 538 Market · Bathroom</li>
+                  <li><code>create_invoice</code> Progress billing · tile</li>
+                  <li><code>set_invoice_progress</code> Tile 100%</li>
+                </ul>
+                <div class="ask">
+                  <span class="ask-from">BuildTrack asks before marking it sent</span>
+                  <p>Mark Invoice 8-3 for $9,860.00 on 538 Market as Sent? It will be locked.</p>
+                  <div class="ask-btns"><span class="yes">Yes</span><span>No</span></div>
+                </div>
+                <ul class="calls"><li><code>set_invoice_status</code> Sent, after your yes</li></ul>
+                <p class="msg ag">Done. Invoice 8-3 bills the rest of the tile and is marked sent and locked.</p>
+              </div>
+              <p class="term-note">Example session</p>
             </div>
           </div>
         </div>
@@ -277,6 +306,6 @@
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
       <symbol id="gh" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
     </svg>
-    <script type="module" src="/app.js?v=6"></script>
+    <script type="module" src="/app.js?v=7"></script>
   </body>
 </html>
