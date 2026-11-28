@@ -122,11 +122,11 @@ dark.addEventListener('change', heroShow);
 
 // Looks: the same BuildTrack in a few very different themes.
 const LOOKS = [
-  { id: 'blueprint', mode: 'dark', big: true },
+  { id: 'omarchy-tokyo-night', mode: 'dark', label: 'Tokyo Night', note: 'from Omarchy', big: true },
   { id: 'kraft', mode: 'light' },
   { id: 'hi-vis', mode: 'dark' },
   { id: 'sage', mode: 'light' },
-  { id: 'omarchy-tokyo-night', mode: 'dark', label: 'Tokyo Night', note: 'from Omarchy' },
+  { id: 'concrete', mode: 'light' },
   // Somebody's own brand: Graphite with a teal accent, rounder corners and IBM Plex.
   { id: 'graphite', mode: 'light', label: 'Your brand', colors: { primary: '#0f766e', 'primary-foreground': '#ffffff', accent: '#e6f2f0' }, font: 'plex', radius: 12 },
 ];
