@@ -1,27 +1,11 @@
-// buildtrack.run: the live mini-app in the hero and the look lab.
+// buildtrack.run: the live mini-app in the hero.
 // Every BuildTrack you see on the page is this HTML styled by a theme's colours
 // (assets/themes.json, read from the real app by scripts/extract-themes.mjs).
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FONTS = {
   inter: "'Inter', ui-sans-serif, system-ui, sans-serif",
   system: "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
   plex: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
   'jetbrains-mono': "'JetBrains Mono', ui-monospace, monospace",
-};
-const SLOTS = ['red', 'orange', 'amber', 'green', 'teal', 'cyan', 'blue', 'purple', 'pink', 'gray'];
-
-// ---------- colour helpers ----------
-const lum = (hex) => {
-  const v = hex.replace('#', '');
-  const [r, g, b] = [0, 2, 4].map((i) => {
-    const c = parseInt(v.slice(i, i + 2), 16) / 255;
-    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-};
-const readable = (bgHex, a, b) => {
-  const ratio = (x, y) => (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
-  return ratio(lum(bgHex), lum(a)) >= ratio(lum(bgHex), lum(b)) ? a : b;
 };
 
 // ---------- the mini app ----------
@@ -116,110 +100,25 @@ function makeMini(el, opts) {
   return el;
 }
 
-/** Styles a mini app with a theme and a look ({mode, accent, font, radius, numbers, overrides}). */
-function paint(el, theme, look = {}) {
-  const mode = look.mode === 'dark' ? (theme.dark ? 'dark' : 'light') : theme.light ? 'light' : 'dark';
-  const c = { ...theme[mode], ...(look.overrides ?? {}) };
-  const s = el.style;
-  for (const [k, v] of Object.entries(c)) s.setProperty(`--${k}`, v);
-  if (look.accent && look.accent !== 'theme') {
-    const p = c[`c-${look.accent}`];
-    s.setProperty('--primary', p);
-    s.setProperty('--primary-foreground', readable(p, '#ffffff', c.background));
-    s.setProperty('--accent', `color-mix(in oklab, ${p} 12%, ${c.card})`);
-  }
-  if (look.overrides?.primary && !look.overrides['primary-foreground']) s.setProperty('--primary-foreground', readable(look.overrides.primary, '#ffffff', '#111111'));
-  s.setProperty('--font', FONTS[look.font && look.font !== 'theme' ? look.font : theme.font ?? 'inter']);
-  s.setProperty('--r', `${look.radius ?? 6}px`);
-  el.dataset.mode = mode;
-  el.classList.toggle('mono-num', look.numbers === 'mono');
-  return mode;
+/** Styles a mini app with a theme's colours ({mode}). */
+function paint(el, theme, { mode = 'light' } = {}) {
+  const m = mode === 'dark' && theme.dark ? 'dark' : theme.light ? 'light' : 'dark';
+  for (const [k, v] of Object.entries(theme[m])) el.style.setProperty(`--${k}`, v);
+  el.style.setProperty('--font', FONTS[theme.font ?? 'inter']);
+  el.style.setProperty('--r', '6px');
+  el.dataset.mode = m;
 }
 
 // ---------- page ----------
 const themes = await (await fetch('/assets/themes.json')).json();
 const byId = Object.fromEntries(themes.map((t) => [t.id, t]));
 
-// Hero: a live BuildTrack that cycles through themes.
+// Hero: a live BuildTrack in its own look, light or dark to match the visitor.
 const hero = makeMini(document.getElementById('hero-mini'));
-const heroLabel = document.getElementById('hero-theme');
-// Deliberately varied: [theme, mode].
-const heroOrder = [['buildtrack', 'light'], ['blueprint', 'dark'], ['kraft', 'light'], ['hi-vis', 'dark'], ['sage', 'light'], ['walnut', 'dark'], ['concrete', 'light'], ['omarchy-tokyo-night', 'dark'], ['graphite', 'light'], ['concrete', 'dark']];
-let heroI = 0;
-let heroPaused = false;
-const heroShow = () => {
-  const [id, wanted] = heroOrder[heroI % heroOrder.length];
-  const t = byId[id];
-  const mode = paint(hero, t, { mode: wanted });
-  heroLabel.textContent = `${t.name} · ${mode}`;
-};
+const dark = matchMedia('(prefers-color-scheme: dark)');
+const heroShow = () => paint(hero, byId.buildtrack, { mode: dark.matches ? 'dark' : 'light' });
 heroShow();
-hero.addEventListener('mouseenter', () => (heroPaused = true));
-hero.addEventListener('mouseleave', () => (heroPaused = false));
-if (!reduced) setInterval(() => !heroPaused && (heroI++, heroShow()), 2600);
-
-// The look lab.
-const lab = makeMini(document.getElementById('lab-mini'));
-const state = { theme: 'buildtrack', mode: 'light', accent: 'theme', font: 'theme', radius: 6, numbers: 'proportional', overrides: {} };
-const $ = (id) => document.getElementById(id);
-
-const themeList = $('lab-themes');
-for (const pack of ['BuildTrack', 'Omarchy']) {
-  const h = document.createElement('div');
-  h.className = 'lab-pack';
-  h.textContent = pack === 'BuildTrack' ? 'BuildTrack' : 'Omarchy basics';
-  themeList.append(h);
-  const wrap = document.createElement('div');
-  wrap.className = 'lab-chips';
-  for (const t of themes.filter((x) => x.pack === pack)) {
-    const c = t.light ?? t.dark;
-    const d = t.dark ?? t.light;
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'chip';
-    b.dataset.id = t.id;
-    b.innerHTML = `<span class="sw" style="background:linear-gradient(135deg, ${c.background} 50%, ${d.background} 50%)"><i style="background:${c.primary}"></i></span>${t.name}`;
-    b.onclick = () => setLab({ theme: t.id, overrides: {} });
-    wrap.append(b);
-  }
-  themeList.append(wrap);
-}
-
-const accents = $('lab-accents');
-for (const a of ['theme', ...SLOTS]) {
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.className = 'dot';
-  b.dataset.accent = a;
-  b.title = a === 'theme' ? "Theme's own" : a[0].toUpperCase() + a.slice(1);
-  b.onclick = () => setLab({ accent: a, overrides: { ...state.overrides, primary: undefined } });
-  accents.append(b);
-}
-
-const seg = (id, key) =>
-  $(id).querySelectorAll('button').forEach((b) => (b.onclick = () => setLab({ [key]: b.dataset.v })));
-seg('lab-mode', 'mode');
-seg('lab-font', 'font');
-$('lab-radius').oninput = (e) => setLab({ radius: Number(e.target.value) });
-$('lab-reset').onclick = () => setLab({ theme: 'buildtrack', mode: 'light', accent: 'theme', font: 'theme', radius: 6, numbers: 'proportional', overrides: {} });
-
-function setLab(next) {
-  Object.assign(state, next);
-  for (const k of Object.keys(state.overrides)) if (state.overrides[k] === undefined) delete state.overrides[k];
-  const t = byId[state.theme];
-  const mode = paint(lab, t, state);
-  themeList.querySelectorAll('.chip').forEach((b) => b.classList.toggle('on', b.dataset.id === state.theme));
-  accents.querySelectorAll('.dot').forEach((b) => {
-    b.classList.toggle('on', b.dataset.accent === state.accent);
-    b.style.background = b.dataset.accent === 'theme' ? t[mode].primary : t[mode][`c-${b.dataset.accent}`];
-  });
-  document.querySelectorAll('#lab-mode button').forEach((b) => b.classList.toggle('on', b.dataset.v === state.mode));
-  document.querySelectorAll('#lab-font button').forEach((b) => b.classList.toggle('on', b.dataset.v === state.font));
-  $('lab-radius').value = state.radius;
-  $('lab-radius-v').textContent = `${state.radius}px`;
-  $('lab-note').textContent = t.light && t.dark ? '' : `${t.name} is a ${mode}-only theme, so it stays ${mode}.`;
-}
-setLab({});
+dark.addEventListener('change', heroShow);
 
 // Copy buttons.
 document.querySelectorAll('[data-copy]').forEach((b) => {

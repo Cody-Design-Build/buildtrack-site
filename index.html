@@ -29,7 +29,7 @@
           <span>BuildTrack</span>
         </a>
         <nav class="nav-links" aria-label="Sections">
-          <a href="#looks">Looks</a>
+          <a href="#plugins">Plugins</a>
           <a href="https://demo.buildtrack.run">Demo</a>
           <a href="#features">Features</a>
           <a href="#agents">For agents</a>
@@ -49,8 +49,8 @@
         <h1>Job management that bends to how&nbsp;you&nbsp;build.</h1>
         <p class="lede">
           BuildTrack is a lightweight app for design-build and remodeling contractors. Jobs, budgets, change orders,
-          invoices, bids and schedules, without the bloat, and built so you and your AI agents can reshape it around
-          the way your company actually works.
+          invoices, bids and schedules, without the bloat. Every part of it is a plugin that you and your AI agents
+          can switch off, change or replace, so it works the way your company actually works.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://github.com/Cody-Design-Build/BuildTrack">
@@ -61,10 +61,10 @@
           <a class="btn btn-ghost" href="#features">See what's inside →</a>
         </div>
         <figure class="frame hero-frame live">
-          <div class="frame-bar"><i></i><i></i><i></i><span>app.buildtrack.run</span><b class="live-tag"><span class="pulse"></span><span id="hero-theme">BuildTrack · light</span></b></div>
-          <div id="hero-mini" role="img" aria-label="A live BuildTrack dashboard, changing look every few seconds"></div>
+          <div class="frame-bar"><i></i><i></i><i></i><span>app.buildtrack.run</span></div>
+          <div id="hero-mini" role="img" aria-label="The BuildTrack dashboard"></div>
         </figure>
-        <p class="hero-note">That's not a screenshot. It's the real layout, cycling through a few of BuildTrack's looks. Hover to hold it; <a href="#looks">try them yourself ↓</a></p>
+        <p class="hero-note">Every menu item, page and tab in there comes from a plugin. <a href="#plugins">See how ↓</a></p>
       </section>
 
       <section class="pains wrap" aria-labelledby="pains-title">
@@ -86,39 +86,39 @@
       </section>
 
 
-      <section id="looks" class="lab" aria-labelledby="lab-title">
+      <section id="plugins" class="plugins" aria-labelledby="plugins-title">
         <div class="wrap">
-          <p class="eyebrow plain">Make it look like yours</p>
-          <h2 id="lab-title" class="section-title big">Blueprint, kraft paper, hi&#8209;vis or your own brand.</h2>
-          <p class="lede left">Pick a starting theme, light or dark, then change the accent, font, corners or any single colour in Settings → Appearance. Everyone can have their own look, or an admin sets one for the whole company. Try it:</p>
-          <div class="lab-grid">
-            <div class="lab-controls">
-              <div class="lab-block">
-                <div class="lab-h">Theme</div>
-                <div id="lab-themes" class="lab-themes"></div>
-              </div>
-              <div class="lab-row2">
-                <div class="lab-block">
-                  <div class="lab-h">Mode</div>
-                  <div id="lab-mode" class="seg"><button type="button" data-v="light">Light</button><button type="button" data-v="dark">Dark</button></div>
+          <p class="eyebrow plain">Agent first</p>
+          <h2 id="plugins-title" class="section-title big">Every part of BuildTrack is a&nbsp;plugin.</h2>
+          <p class="lede left">Jobs, budgets, bids, invoices, bills, the schedule, job costing: each one is a small folder of code that describes itself to the app. Don't like how job costing works? Rewrite the plugin, not the software.</p>
+          <div class="plug-grid">
+            <ul class="plug-points">
+              <li><b>Switch off what you don't use.</b> Settings → Plugins turns features on and off for the whole company. The records stay, so turning one back on brings it back as it was.</li>
+              <li><b>Replace, don't fork.</b> Give your plugin the same role as the one it replaces and pick it in Settings. Everything else keeps working.</li>
+              <li><b>Contracts, not tangles.</b> Plugins never reach into each other's code. They share data through versioned contracts: budgets, bids and bills hand their numbers to job costing as <code>costs/v1</code>, so rewriting one never breaks another.</li>
+              <li><b>Written for agents.</b> One folder, one <code>definePlugin()</code>, and a guide that walks your agent through it. Describe the feature; your agent builds the plugin.</li>
+            </ul>
+            <div class="plug-stage">
+              <div class="plug-map" role="img" aria-label="BuildTrack's plugins around a small kernel, with budgets, bids, bills and expenses sharing costs with job costing">
+                <div class="plug-kernel"><b>Kernel</b><span>records · sign-in · menu · settings</span></div>
+                <div class="plug-tiles">
+                  <span>Home</span><span>Jobs</span><span>Contacts</span><span>Records</span>
+                  <span>Tasks</span><span>Schedule</span><span>Invoices</span>
+                  <span class="cost">Budgets</span><span class="cost">Bids</span><span class="cost">Bills</span><span class="cost">Expenses</span>
+                  <span class="cost reads">Job costing</span>
+                  <span class="yours">+ Yours</span>
                 </div>
-                <div class="lab-block">
-                  <div class="lab-h">Accent</div>
-                  <div id="lab-accents" class="dots"></div>
-                </div>
+                <div class="plug-contract"><span class="cost-dot"></span> share costs through the <code>costs/v1</code> contract</div>
               </div>
-              <div class="lab-block">
-                <div class="lab-h">Font</div>
-                <div id="lab-font" class="seg wrap-seg"><button type="button" data-v="theme">Theme's</button><button type="button" data-v="inter" style="font-family:Inter">Inter</button><button type="button" data-v="plex" style="font-family:'IBM Plex Sans'">IBM Plex</button><button type="button" data-v="jetbrains-mono" style="font-family:'JetBrains Mono'">JetBrains Mono</button><button type="button" data-v="system" style="font-family:system-ui">System</button></div>
+              <div class="code-card">
+                <div class="term-bar"><i></i><i></i><i></i><span>src/plugins/punch-list/index.tsx</span></div>
+<pre><span class="k">export default</span> <span class="f">definePlugin</span>({
+  id: <span class="s">'acme.punch-list'</span>,
+  name: <span class="s">'Punch list'</span>,
+  requires: [<span class="s">'buildtrack.jobs'</span>, <span class="s">'buildtrack.tasks'</span>],
+  jobTabs: [{ id: <span class="s">'punch'</span>, label: <span class="s">'Punch list'</span>, component: PunchList }],
+});</pre>
               </div>
-              <label class="lab-block"><span class="lab-h">Corners <span id="lab-radius-v" class="muted">6px</span></span><input id="lab-radius" type="range" min="0" max="20" value="6" /></label>
-              <div class="lab-actions">
-                <button type="button" id="lab-reset" class="btn btn-small">Reset</button>
-                <span id="lab-note" class="muted small"></span>
-              </div>
-            </div>
-            <div class="lab-stage">
-              <figure class="frame lab-frame"><div class="frame-bar"><i></i><i></i><i></i><span>Your BuildTrack</span></div><div id="lab-mini"></div></figure>
             </div>
           </div>
         </div>
@@ -168,7 +168,7 @@
           <div><h4>Invite-only</h4><p>Nobody gets an account without an invite. Owners and admins invite the team; people sign in with an emailed code.</p></div>
           <div><h4>Shared files</h4><p>Signed proposals and bill attachments are stored once and open for the whole team.</p></div>
           <div><h4>Tasks</h4><p>Follow-ups and to-dos by job, type and who's on it.</p></div>
-          <div><h4>Plugins</h4><p>Every feature is a plugin: switch off what you don't use, or have your agent build your own.</p></div>
+          <div><h4>Undo and backups</h4><p>Undo a change you didn't mean, and download a full backup of your data whenever you like.</p></div>
           <div><h4>Your look</h4><p>Light or dark, <span data-theme-count>14</span> themes to start from, and any colour, font or corner you like.</p></div>
         </div>
       </section>
@@ -183,7 +183,7 @@
               company needs in plain words; your agent makes the change, and you check it before anyone else sees it.
             </p>
             <ul class="checks">
-              <li><b>Agents know the rules.</b> An <code>AGENTS.md</code> file walks any agent through the codebase, the data and the release process.</li>
+              <li><b>Agents know the rules.</b> <code>AGENTS.md</code> and the plugin guide walk any agent through the codebase, the data and the release process.</li>
               <li><b>A data model you can explain in a sentence.</b> Every record is one row; a new kind of record needs no database migration.</li>
               <li><b>Every change gets a preview.</b> Each pull request builds its own private link with sample data, so you see the change before your team does.</li>
               <li><b>Small enough to understand.</b> React and TypeScript, no framework maze. You, or your agent, can read the whole thing.</li>
@@ -194,9 +194,9 @@
             <pre><span class="you">›</span> Add a punch list to each job. Items get assigned to
   a crew member and show up on their tasks.
 
-<span class="ag">●</span> Reading AGENTS.md and src/data.ts…
-<span class="ag">●</span> Adding a punchItems list, sample items, and a
-  Punch list tab on the job page
+<span class="ag">●</span> Reading AGENTS.md and src/plugins/README.md…
+<span class="ag">●</span> New plugin acme.punch-list: a Punch list tab on
+  every job, sample items, tasks for the assignee
 <span class="ag">●</span> npm run check  <span class="ok">✓ type check · ✓ build</span>
 <span class="ag">●</span> Opened pull request #14
   Preview: <span class="link">buildtrack-git-punch-list.vercel.app</span>
@@ -233,7 +233,7 @@
       </section>
 
       <section class="origin wrap">
-        <figure class="frame origin-frame"><img src="/assets/shots/settings-themes.jpg" alt="The theme gallery in Appearance settings, shown in the Blueprint dark theme" loading="lazy" width="2160" height="1350" /></figure>
+        <figure class="frame origin-frame"><img src="/assets/shots/settings-plugins.jpg" alt="Settings → Plugins, listing each installed plugin with a switch and what it adds" loading="lazy" width="2160" height="1350" /></figure>
         <div>
           <h2 class="section-title">Built by a builder.</h2>
           <p class="lede">
